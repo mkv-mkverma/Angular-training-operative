@@ -32,6 +32,8 @@ in angular 16 and before it was part of module we have to split code into module
 }
 
 ng g c menu
+ng g i workshops/models/IWorkshops
+ng g s workshops/workshops
 
 http://localhost:4200/workshops/add
 
