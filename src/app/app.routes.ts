@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
@@ -15,5 +16,10 @@ export const routes: Routes = [
     redirectTo: '',
     // Ensures that the entire URL must match exactly. Without pathMatch: 'full', Angular might partially match routes incorrectly.
     pathMatch: 'full',
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+    title: 'Page Not Found | Workshops App',
   },
 ];

@@ -33,6 +33,13 @@ in angular 16 and before it was part of module we have to split code into module
 
 ng g c menu
 
+http://localhost:4200/workshops/add
+
+if we dont add [routerLinkActiveOptions]="{exact: true}"
+then home workshop and add workshop tab all will be active if visited because
+
+/ home | /workshops | /workshops/add
+
 // TODO: Need to search
 prevent default
 
@@ -45,6 +52,6 @@ tabIndex
 aria-mmm = disable
 aria-current="page"
 aria-labelledby="navbarDropdown1"
-
+aria-current="page"
 // HTML
 section | Article | Header | Footer
