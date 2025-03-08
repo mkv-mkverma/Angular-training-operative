@@ -1,20 +1,29 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { MenuComponent } from './menu/menu.component';
+import { HomeComponent } from './home/home.component';
 // Decorators is a typescript annotations and its comes from angular code
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NgbAlertModule, CommonModule, MenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'workshops-app';
-  btnClickCount = 0;
+  public title = 'workshops-app';
+  public btnClickCount = 0;
+  isOpen = true;
 
   changeTitle() {
     this.title = 'workshop app for operative';
     this.btnClickCount++;
+    this.isOpen = true;
+  }
+
+  isToggle() {
+    this.isOpen = !this.isOpen;
   }
 }
