@@ -25,10 +25,29 @@ in angular 16 and before it was part of module we have to split code into module
 
 @if(condition1) {
 // Block 1
-} @else @if(condition2) {
+} @else if(condition2) {
 // Block 2
 } @else {
 // Block 3
+}
+
+@if(loading) {
+<app-loading-spinner></app-loading-spinner>
+} @else if( !loading && error ) {
+<app-error-alert></app-error-alert>
+} @else {
+@for( workshop of workshops; track workshop.id ) {
+<div>{{ workshop.name }}</div>
+}
+}
+
+@Input('error') error: Error | null = null;
+
+ngOnChanges(changes: SimpleChanges): void {
+const error: SimpleChange = changes['error'];
+if (error.currentValue) {
+console.error(error.currentValue);
+}
 }
 
 ng g c menu

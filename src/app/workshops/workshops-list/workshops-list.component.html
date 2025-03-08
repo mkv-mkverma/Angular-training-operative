@@ -1,1 +1,7 @@
-<p>workshops-list works!</p>
+@if(loading) {
+<app-loading-spinner variant="success"></app-loading-spinner>
+} @else if( !loading && error ) {
+<app-error-alert [error]="error"></app-error-alert>
+} @else { @for( workshop of workshops; track workshop.id ) {
+<div>{{ workshop.name }}</div>
+} }
