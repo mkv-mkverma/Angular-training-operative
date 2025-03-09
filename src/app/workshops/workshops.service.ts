@@ -8,9 +8,14 @@ import { HttpClient } from '@angular/common/http';
 export class WorkshopsService {
   constructor(public http: HttpClient) {}
 
-  getWorkshops() {
+  fetchWorkshops(page: number = 1) {
     return this.http.get<IWorkshop[]>(
-      `https://workshops-server.onrender.com/workshops`
+      `https://workshops-server.onrender.com/workshops`,
+      {
+        params: {
+          _page: page,
+        },
+      }
     );
   }
 }

@@ -22,10 +22,16 @@ export class WorkshopsListComponent implements OnInit {
   workshops!: IWorkshop[];
   loading = true;
   error: Error | null = null;
+  page = 1;
   constructor(private workshopsService: WorkshopsService) {}
 
   ngOnInit() {
-    this.workshopsService.getWorkshops().subscribe({
+    this.getWorkshops();
+  }
+
+  getWorkshops() {
+    this.loading = true;
+    this.workshopsService.fetchWorkshops().subscribe({
       next: (workshops) => {
         this.workshops = workshops;
         this.loading = false;
@@ -38,5 +44,13 @@ export class WorkshopsListComponent implements OnInit {
       },
     });
     console.log(this.workshops);
+  }
+
+  changePage(by: number) {
+    if (this.page + by <= 0) {
+      return;
+    }
+    this.page = this.page + by;
+    this.getWorkshops();
   }
 }
