@@ -8,11 +8,11 @@
     <div class="card-text">
       <div>{{ workshop.time }}</div>
       <div>
-        {{ workshop.startDate | date : "short" }} - {{ workshop.endDate }}
+        {{ workshop.startDate | date : "EEEE, MMMM d, y" }} -
+        {{ workshop.endDate | date : "EEEE, MMMM d, y" }}
       </div>
       <div>
-        {{ workshop.location.address }}, {{ workshop.location.city }},
-        {{ workshop.location.state }}
+        {{ workshop.location | location : "short" : 40 }}
       </div>
     </div>
     <a href="#" class="btn btn-primary">Know more</a>
