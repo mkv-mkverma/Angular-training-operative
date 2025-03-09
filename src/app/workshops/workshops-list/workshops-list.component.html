@@ -2,6 +2,12 @@
 <app-loading-spinner variant="success"></app-loading-spinner>
 } @else if( !loading && error ) {
 <app-error-alert [error]="error"></app-error-alert>
-} @else { @for( workshop of workshops; track workshop.id ) {
-<div>{{ workshop.name }}</div>
-} }
+} @else {
+<div class="row">
+  @for( workshop of workshops; track workshop.id ) {
+  <div class="col-12 col-md-4 my-3 d-flex">
+    <app-item [workshop]="workshop"></app-item>
+  </div>
+  }
+</div>
+}

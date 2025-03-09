@@ -23,6 +23,8 @@ in angular 16 and before it was part of module we have to split code into module
 ✅ Less Boilerplate → No ng-template required.
 ✅ Better Performance → Directly compiles into the DOM.
 
+https://angular.dev/api/core/@if
+
 @if(condition1) {
 // Block 1
 } @else if(condition2) {
@@ -31,13 +33,48 @@ in angular 16 and before it was part of module we have to split code into module
 // Block 3
 }
 
+@for (item of items; track item.name) {
+
+<li>{{ item.name }}</li>
+} @empty {
+<li>There are no items.</li>
+}
+
 @if(loading) {
 <app-loading-spinner></app-loading-spinner>
 } @else if( !loading && error ) {
 <app-error-alert></app-error-alert>
 } @else {
-@for( workshop of workshops; track workshop.id ) {
-<div>{{ workshop.name }}</div>
+@for (item of items; track item.name) {
+
+<li>{{ item.name }}</li>
+} @empty {
+<li>There are no items.</li>
+}
+}
+
+@let user = user$ | async;
+@if (user) {
+
+  <h1>Hello, {{user.name}}</h1>
+  <user-avatar [photo]="user.photo"/>
+  <ul>
+    @for (snack of user.favoriteSnacks; track snack.id) {
+      <li>{{snack.name}}</li>
+    }
+  </ul>
+  <button (click)="update(user)">Update profile</button>
+}
+
+@switch (condition) {
+@case (caseA) {
+Case A.
+}
+@case (caseB) {
+Case B.
+}
+@default {
+Default case.
 }
 }
 
@@ -53,6 +90,7 @@ console.error(error.currentValue);
 ng g c menu
 ng g i workshops/models/IWorkshops
 ng g s workshops/workshops
+ng g p common/location
 
 http://localhost:4200/workshops/add
 
