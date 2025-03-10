@@ -5,6 +5,8 @@ import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingSpinnerComponent } from '../../common/loading-spinner/loading-spinner.component';
 import { ErrorAlertComponent } from '../../common/error-alert/error-alert.component';
 import { ItemComponent } from './item/item.component';
+import { PaginationComponent } from '../../common/pagination/pagination.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-workshops-list',
@@ -14,6 +16,7 @@ import { ItemComponent } from './item/item.component';
     LoadingSpinnerComponent,
     ErrorAlertComponent,
     ItemComponent,
+    PaginationComponent,
   ],
   templateUrl: './workshops-list.component.html',
   styleUrl: './workshops-list.component.scss',
@@ -23,7 +26,22 @@ export class WorkshopsListComponent implements OnInit {
   loading = true;
   error: Error | null = null;
   page = 1;
-  constructor(private workshopsService: WorkshopsService) {}
+  constructor(
+    private workshopsService: WorkshopsService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.queryParamMap.subscribe({
+      next: (queryParams) => {
+        const queryStr = queryParams.get('page');
+        this.page = queryStr === null ? 1 : +queryStr;
+        this.getWorkshops();
+      },
+      error: (error) => {
+        error = error;
+      },
+    });
+  }
 
   ngOnInit() {
     this.getWorkshops();
@@ -31,7 +49,7 @@ export class WorkshopsListComponent implements OnInit {
 
   getWorkshops() {
     this.loading = true;
-    this.workshopsService.fetchWorkshops().subscribe({
+    this.workshopsService.fetchWorkshops(this.page).subscribe({
       next: (workshops) => {
         this.workshops = workshops;
         this.loading = false;
@@ -46,11 +64,15 @@ export class WorkshopsListComponent implements OnInit {
     console.log(this.workshops);
   }
 
-  changePage(by: number) {
-    if (this.page + by <= 0) {
-      return;
-    }
-    this.page = this.page + by;
+  changePage(newPage: number) {
+    this.page = newPage;
+
+    this.router.navigate(['/workshops'], {
+      queryParams: {
+        page: this.page,
+      },
+    });
+
     this.getWorkshops();
   }
 }
