@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import IWorkshop from './models/IWorkshop';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WorkshopsService {
+  private apiUrl = environment.apiUrl;
   constructor(public http: HttpClient) {}
 
   fetchWorkshops(page: number = 1, category: string = '') {
@@ -16,13 +18,11 @@ export class WorkshopsService {
     }
 
     return this.http.get<IWorkshop[]>(
-      `https://workshops-server.onrender.com/workshops?${params.toString()}`
+      `${this.apiUrl}/workshops?${params.toString()}`
     );
   }
 
   fetchWorkshopById(workshopId: number) {
-    return this.http.get<IWorkshop>(
-      `https://workshops-server.onrender.com/workshops/${workshopId}`
-    );
+    return this.http.get<IWorkshop>(`${this.apiUrl}/workshops/${workshopId}`);
   }
 }
