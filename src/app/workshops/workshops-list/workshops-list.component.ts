@@ -75,6 +75,16 @@ export class WorkshopsListComponent implements OnInit {
     );
   }
 
+  filterByCategory(category: string) {
+    this.workshopsService.fetchWorkshops(this.page, category).subscribe({
+      next: (workshops) => {
+        this.workshops = workshops;
+        // A better alternative: If you make `this.workshops` and `this.filterKey` as signals, you can compute `this.filteredWorkshops` automatically when either `this.workshops` changes or `this.filterKey` changes
+        this.filterWorkshops();
+      },
+    });
+  }
+
   changePage(newPage: number) {
     this.page = newPage;
 
