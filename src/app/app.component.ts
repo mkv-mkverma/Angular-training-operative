@@ -3,11 +3,18 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuComponent } from './menu/menu.component';
+import { ToastComponent } from './common/toast/toast.component';
 // Decorators is a typescript annotations and its comes from angular code
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgbAlertModule, CommonModule, MenuComponent],
+  imports: [
+    RouterOutlet,
+    NgbAlertModule,
+    CommonModule,
+    MenuComponent,
+    ToastComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

@@ -70,8 +70,34 @@
 <div class="row">
   @for( workshop of filteredWorkshops; track workshop.id ) {
   <div class="col-12 col-md-4 my-3 d-flex">
-    <app-item [workshop]="workshop"></app-item>
+    <app-item
+      [workshop]="workshop"
+      (delete)="open(content, workshop)"
+    ></app-item>
   </div>
   }
 </div>
 }
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Please confirm deletion!</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('close')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      You are about to delete a workshop. This action cannot be undone. Are you
+      sure want to proceed?
+    </div>
+    <div>
+      <button class="btn btn-light" (click)="modal.close('cancel')">
+        Cancel
+      </button>
+      <button class="btn btn-danger" (click)="modal.close('ok')">OK</button>
+    </div>
+  </div>
+</ng-template>
