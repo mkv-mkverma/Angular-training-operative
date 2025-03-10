@@ -3,11 +3,12 @@ import ISession from '../../models/ISession';
 import { SessionService } from '../../session.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { VotingWidgetComponent } from '../../../common/voting-widget/voting-widget.component';
 
 @Component({
   selector: 'app-sessions-list',
   standalone: true,
-  imports: [],
+  imports: [VotingWidgetComponent],
   templateUrl: './sessions-list.component.html',
   styleUrl: './sessions-list.component.scss',
 })
@@ -35,6 +36,17 @@ export class SessionsListComponent {
         next: (sessions) => {
           this.sessions = sessions;
         },
+      });
+  }
+
+  updateVote(session: ISession, by: number) {
+    this.sessionService
+      .voteForSession(session.id, by === 1 ? 'upvote' : 'downvote')
+      .subscribe({
+        next: (updatedSession) => {
+          session.upvoteCount = updatedSession.upvoteCount;
+        },
+        // @todo handle error
       });
   }
 
