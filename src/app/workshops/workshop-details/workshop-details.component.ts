@@ -1,12 +1,18 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { LocationPipe } from '../../common/pipes/location.pipe';
-import IWorkshop from '../models/IWorkshop';
+import IWorkshop, { IModes } from '../models/IWorkshop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorAlertComponent } from '../../common/error-alert/error-alert.component';
 import { LoadingSpinnerComponent } from '../../common/loading-spinner/loading-spinner.component';
 import { WorkshopsService } from '../workshops.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+// this gives the individual icons we want to use
+import {
+  faCheckCircle,
+  faTimesCircle,
+} from '@fortawesome/free-regular-svg-icons';
 @Component({
   selector: 'app-workshop-details',
   standalone: true,
@@ -15,6 +21,7 @@ import { WorkshopsService } from '../workshops.service';
     LocationPipe,
     ErrorAlertComponent,
     LoadingSpinnerComponent,
+    FontAwesomeModule,
   ],
   templateUrl: './workshop-details.component.html',
   styleUrl: './workshop-details.component.scss',
@@ -24,6 +31,11 @@ export class WorkshopDetailsComponent {
   error: Error | null = null;
   workshop!: IWorkshop;
   workshopId!: number;
+  icons = {
+    // The below is just ES2015+ short for faCheckCircle: faCheckCircle,
+    faCheckCircle,
+    faTimesCircle,
+  };
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -48,5 +60,10 @@ export class WorkshopDetailsComponent {
         });
       },
     });
+  }
+  getIconForMode(mode: keyof IModes) {
+    return this.workshop.modes[mode]
+      ? this.icons.faCheckCircle
+      : this.icons.faTimesCircle;
   }
 }
