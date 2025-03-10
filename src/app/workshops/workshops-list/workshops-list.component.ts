@@ -7,6 +7,7 @@ import { ErrorAlertComponent } from '../../common/error-alert/error-alert.compon
 import { ItemComponent } from './item/item.component';
 import { PaginationComponent } from '../../common/pagination/pagination.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-workshops-list',
@@ -17,6 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     ErrorAlertComponent,
     ItemComponent,
     PaginationComponent,
+    FormsModule,
   ],
   templateUrl: './workshops-list.component.html',
   styleUrl: './workshops-list.component.scss',
@@ -26,6 +28,8 @@ export class WorkshopsListComponent implements OnInit {
   loading = true;
   error: Error | null = null;
   page = 1;
+  filterKey = 'Angular';
+  filteredWorkshops!: IWorkshop[];
   constructor(
     private workshopsService: WorkshopsService,
     private router: Router,
@@ -52,6 +56,7 @@ export class WorkshopsListComponent implements OnInit {
     this.workshopsService.fetchWorkshops(this.page).subscribe({
       next: (workshops) => {
         this.workshops = workshops;
+        this.filteredWorkshops = workshops;
         this.loading = false;
         console.log(workshops);
       },
@@ -62,6 +67,12 @@ export class WorkshopsListComponent implements OnInit {
       },
     });
     console.log(this.workshops);
+  }
+
+  filterWorkshops() {
+    this.filteredWorkshops = this.workshops.filter((w) =>
+      w.name.toLowerCase().includes(this.filterKey.toLowerCase())
+    );
   }
 
   changePage(newPage: number) {
