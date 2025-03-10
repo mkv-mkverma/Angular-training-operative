@@ -19,4 +19,10 @@ export class WorkshopsService {
       `https://workshops-server.onrender.com/workshops?${params.toString()}`
     );
   }
+
+  fetchWorkshopById(workshopId: number) {
+    return this.http.get<IWorkshop>(
+      `https://workshops-server.onrender.com/workshops/${workshopId}`
+    );
+  }
 }

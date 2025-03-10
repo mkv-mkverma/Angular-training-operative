@@ -16,13 +16,13 @@ export const routes: Routes = [
     title: 'Add a workshop',
   },
   {
-    path: 'workshops/:id',
-    component: WorkshopDetailsComponent,
-    title: 'Workshop Details',
-  },
-  {
     path: 'workshops/favorites',
     component: FavoritesComponent,
     title: 'Edit a workshop',
+  },
+  {
+    path: 'workshops/:id',
+    component: WorkshopDetailsComponent,
+    title: 'Workshop Details',
   },
 ];
