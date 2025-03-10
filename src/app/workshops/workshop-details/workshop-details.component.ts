@@ -2,7 +2,13 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { LocationPipe } from '../../common/pipes/location.pipe';
 import IWorkshop, { IModes } from '../models/IWorkshop';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { ErrorAlertComponent } from '../../common/error-alert/error-alert.component';
 import { LoadingSpinnerComponent } from '../../common/loading-spinner/loading-spinner.component';
 import { WorkshopsService } from '../workshops.service';
@@ -22,6 +28,9 @@ import {
     ErrorAlertComponent,
     LoadingSpinnerComponent,
     FontAwesomeModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './workshop-details.component.html',
   styleUrl: './workshop-details.component.scss',

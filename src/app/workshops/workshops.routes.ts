@@ -3,6 +3,8 @@ import { WorkshopsListComponent } from './workshops-list/workshops-list.componen
 import { FavoritesComponent } from './favorites/favorites.component';
 import { Routes } from '@angular/router';
 import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
+import { SessionsListComponent } from './workshop-details/sessions-list/sessions-list.component';
+import { AddSessionComponent } from './workshop-details/add-session/add-session.component';
 
 export const routes: Routes = [
   {
@@ -24,5 +26,15 @@ export const routes: Routes = [
     path: 'workshops/:id',
     component: WorkshopDetailsComponent,
     title: 'Workshop Details',
+    children: [
+      {
+        path: '',
+        component: SessionsListComponent,
+      },
+      {
+        path: 'add-session',
+        component: AddSessionComponent,
+      },
+    ],
   },
 ];

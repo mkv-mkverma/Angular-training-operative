@@ -36,3 +36,26 @@
   </div>
 </div>
 }
+<div class="mt-5">
+  <button
+    [routerLink]="['/workshops', workshop.id]"
+    routerLinkActive="btn-active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="btn btn-primary btn-sm btn-child-link me-2"
+  >
+    Sessions List
+  </button>
+  <button
+    [routerLink]="['/workshops', workshop.id, 'add-session']"
+    routerLinkActive="btn-active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="btn btn-primary btn-sm btn-child-link"
+  >
+    Add a session
+  </button>
+</div>
+
+<!-- The router will decide whether to show sessions list / add session component, and show it here -->
+<div class="my-4">
+  <router-outlet></router-outlet>
+</div>
