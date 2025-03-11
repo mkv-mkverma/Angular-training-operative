@@ -1,5 +1,5 @@
 {
-  "/workshops": {
+  "/api/workshops": {
     "target": "https://workshops-server.onrender.com",
     "secure": false,
     "changeOrigin": true,
